@@ -6,8 +6,8 @@ export default function Counter({total, onClick}) {
         <div className='counter'>
             <span className='number'>{count} / {total}</span>
             <button
-                    className='button'
-                    onClick={() => {
+                className='button'
+                onClick={() => {
                     setCount((prev) => prev + 1);
                     onClick()
                 }}
