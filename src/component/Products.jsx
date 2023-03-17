@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Products() {
-  const [count, setCount] = useState(0);
   const [products, setProducts] = useState([]);
-
-  //Just use fetch itself can infinite call based on the react refreshing characteristic. 
-  // fetch('data/products.json')
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     console.log('🔥Data Recieves from Network');
-  //     setProducts(data);
-  //   });
+  const [checked, setChecked] = useState(false);
+  const handleChange = () => setChecked(prev => !prev)
 
   useEffect(() => {
-    fetch('data/products.json')
+    fetch(`data/${checked ? 'sale_' : ''}products.json`)
       .then((res) => res.json())
       .then((data) => {
         console.log('🔥Data Recieves from Network');
@@ -22,10 +15,12 @@ export default function Products() {
     return () => { //when component unmount, execute
       console.log('🧹 Cleaning Data');
     };
-  }, []);
+  }, [checked]);
 
   return (
     <>
+      <input id="checkbox" type="checkbox" value={checked} onChange={handleChange}/>
+      <label htmlFor="checkbox">Show Sale Products</label>
       <ul>
         {products.map((product) => (
           <li key={product.id}>
@@ -36,7 +31,6 @@ export default function Products() {
           </li>
         ))}
       </ul>
-      <button onClick={() => setCount((prev) => prev + 1)}>{count}</button>
     </>
   );
 }
