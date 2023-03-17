@@ -23,6 +23,7 @@ export default function Products() {
       <label htmlFor="checkbox">Show Sale Products</label>
       <ul>
         {products.map((product) => (
+          // Warning: Each child in a list should have a unique "key" prop. key={product.id}
           <li key={product.id}>
             <article>
               <h3>{product.name}</h3>
